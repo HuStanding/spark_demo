@@ -1,0 +1,25 @@
+spark-submit \
+    --name repeat_inner \
+    --master yarn \
+    --queue aisearchOffline \
+    --executor-memory 4G \
+    --num-executors 20 \
+    --executor-cores 4 \
+    --driver-memory 4G \
+    --conf spark.default.parallelism=1200 \
+    --conf spark.storage.memoryFraction=0.6 \
+    --conf spark.sql.shuffle.partitions=400 \
+    --conf spark.shuffle.memoryFraction=0.3 \
+    --conf spark.network.timeout=800 \
+    --conf spark.yarn.executor.memoryOverhead=2048 \
+    --conf spark.storage.blockManagerTimeoutIntervalMs=100000 \
+    --conf spark.speculation=true \
+    --conf spark.driver.maxResultSize=0 \
+    --conf spark.yarn.dist.archives=hdfs://ns-fed/user/aisearch/user/huzhuo002/tools/python3.zip#python \
+    --conf spark.pyspark.driver.python=/home/huzhuo002/anaconda3/bin/python \
+    --conf spark.pyspark.python=python/bin/python \
+    --conf spark.executorEnv.PYSPARK_DRIVER_PYTHON=python/bin/python \
+    --conf spark.executorEnv.PYSPARK_PYTHON=python/bin/python \
+    --conf spark.yarn.appMasterEnv.PYSPARK_DRIVER_PYTHON=python/bin/python \
+    --conf spark.yarn.appMasterEnv.PYSPARK_PYTHON=python/bin/python \
+    test.py
